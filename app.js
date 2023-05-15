@@ -53,19 +53,29 @@ const gameController = (() => {
     //Creates board
     const board = gameBoard();
 
-    console.log(board.boardArray);
+    const setToken = (token, clickedCell) => {
+        board.boardArray[clickedCell.dataset.row][clickedCell.dataset.col] = token;
+        console.log(board.boardArray);
+    }
  
     const toggleTurn = () => { };
 
-    const playRound = () => {
-        //get current player token
+    const playRound = (clickedCell) => {
+        //Get current player token
         let currentToken = currentPlayer.token;
+
+        setToken(currentPlayer.token, clickedCell);
         //Set token on board array
         //Update DOM board
         //Check for endgame
         //toggleTurn
      };
     ////EVENT LISTENER TAT GOES TO playRound/////
+    document.querySelector('#game-board').addEventListener('click', (e) => {
+        if(e.target && e.target.classList.contains('game-board-cell')){
+            playRound(e.target);
+        }
+    });
      
     board.renderBoard();
 });
