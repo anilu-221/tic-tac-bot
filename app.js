@@ -59,8 +59,12 @@ const gameController = (() => {
     const toggleTurn = () => {
         if(currentPlayer == playerTwo){
             currentPlayer = playerOne;
+            document.querySelector('#player-one-card').classList.toggle('active');
+            document.querySelector('#player-two-card').classList.toggle('active');
         }else{
             currentPlayer = playerTwo;
+            document.querySelector('#player-one-card').classList.toggle('active');
+            document.querySelector('#player-two-card').classList.toggle('active');
         }
      };
 
@@ -101,15 +105,13 @@ const gameController = (() => {
      }
 
     const playRound = (clickedCell) => {
-        setToken(currentPlayer.token, clickedCell);
-        board.renderBoard(board.boardArray);
-
-        //Check for endgame
-        checkForEndgame();
-
-        toggleTurn();
+        setToken(currentPlayer.token, clickedCell); //Add token to board array
+        board.renderBoard(board.boardArray); //Render new board
+        checkForEndgame();//Check for winners
+        toggleTurn();//Toggle turn
      };
-    ////EVENT LISTENER TAT GOES TO playRound/////
+
+    //Click on empty cell
     document.querySelector('#game-board').addEventListener('click', (e) => {
         if(e.target && e.target.classList.contains('game-board-cell')){
             console.log(e.target.innerText);

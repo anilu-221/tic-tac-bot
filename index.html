@@ -18,15 +18,15 @@
 
 <body>
     <main>
+        <!--Game-->
         <div class="container vh-100 d-flex flex-column justify-content-center">
             <div class="row">
                 <div class="col-12">
                     <h1 class="text-center">Tic Tac Bot</h1>
                 </div>
-                
                 <!--Left Column-->
                 <div class="col-md-3">
-                    <div id="player-one-card" class="player-card active">
+                    <div id="" class="player-card active">
                         <p class="player-title">
                             Player One
                         </p>
@@ -51,6 +51,19 @@
             </div>
         </div>
 
+        <!--Winner Modal-->
+        <div class="container d-none">
+            <div class="row">
+                <div class="col-12 winner-modal">
+                    <div class="modal-glass text-center">
+                        Congratulations:
+                        <span id="winner"></span>
+                        <br>
+                        <button href="#" class="btn btn-lg btn-primary ">Play again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

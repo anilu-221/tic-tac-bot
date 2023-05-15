@@ -71,3 +71,29 @@ h1{
 .game-board-cell p{
     margin: 0;
 }
+
+.winner-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-glass{
+    background: rgba(159, 240, 240, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(224, 224, 224, 0.1);
+    backdrop-filter: blur(11.4px);
+    -webkit-backdrop-filter: blur(11.4px);
+    border: 1px solid rgba(74, 76, 79, 0.09);
+    margin: 2px;
+    color: rgb(41, 41, 66) !important;
+    max-width: 500px;
+    padding: 2rem;
+
+}
