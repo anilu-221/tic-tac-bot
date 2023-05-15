@@ -29,7 +29,7 @@ const gameBoard = (() => {
         }
     }
     const cleanBoard = () => {
-        console.log('clean board');
+
     }
     return{boardArray, renderBoard, cleanBoard}
 });
@@ -66,11 +66,36 @@ const gameController = (() => {
 
      const checkForEndgame = () => {
         console.log(board.boardArray);
-        //Check for 3 tokens on row
-
-        //Check for 3 tokens on col
+        //Check for 3 tokens on  a row
+            for(let row = 0; row < 3; row++){
+                //Check row
+                if(board.boardArray[row][0] != 0 && board.boardArray[row][1] != 0 && board.boardArray[row][2] != 0){
+                    if(board.boardArray[row][0] == board.boardArray[row][1] && board.boardArray[row][0] == board.boardArray[row][2]){
+                        console.log('winner on row' + board.boardArray[row][0]);
+                    }   
+                }
+                //Check col
+                for(let col = 0; col < 3; col++){
+                    if(board.boardArray[0][col] != 0 && board.boardArray[0][col] != 0 && board.boardArray[0][col] != 0){
+                        if(board.boardArray[0][col] == board.boardArray[1][col] && board.boardArray[0][col] == board.boardArray[2][col]){
+                            console.log('winner on col' + board.boardArray[col][0]);
+                        }   
+                    }
+                }
+            }
 
         //Check for diagonal
+        if(board.boardArray[0][0] != 0 && board.boardArray[1][1] != 0 && board.boardArray[2][2] != 0){     
+            if(board.boardArray[0][0] == board.boardArray[1][1]  && board.boardArray[0][0] == board.boardArray[2][2]){
+                console.log('winner on col' + board.boardArray[0][0]);
+            }   
+        }
+
+        if(board.boardArray[0][2] != 0 && board.boardArray[1][1] != 0 && board.boardArray[2][0] != 0){     
+            if(board.boardArray[0][2] == board.boardArray[1][1]  && board.boardArray[0][2] == board.boardArray[2][0]){
+                console.log('winner on col' + board.boardArray[0][2]);
+            }   
+        }
 
         //If board is full
      }
