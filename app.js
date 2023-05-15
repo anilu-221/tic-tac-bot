@@ -9,25 +9,20 @@ const gameBoard = (() => {
             boardArray[row][col] = 0;
         }
     }
-    const printCell = () => {
-        const boardButton = document.querySelector('#game-board');
-
-    }
 
     const renderBoard = (boardArray) => {
         const boardButton = document.querySelector('#game-board');
-       // let cellValue = '0';
         boardButton.innerHTML = '';
 
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++){
-                let cellValue = boardArray[row][col];
+                let cellValue = '';
                 if(boardArray[row][col] != 0){
                     cellValue = boardArray[row][col];
                 }
                 boardButton.innerHTML += `
                     <button class="game-board-cell" data-col="${col}" data-row="${row}">
-                        ${boardArray[row][col]}
+                        ${cellValue}
                     </button>
                 `;
             }
@@ -54,30 +49,48 @@ const PlayerController= (name, token) => {
 const gameController = (() => {
     const playerOne = PlayerController('David Bowie', 'X');
     const playerTwo = PlayerController('Ziggy Stardust', 'O');
-    let currentPlayer = playerOne;
-
-    //Creates board
     const board = gameBoard();
+    let currentPlayer = playerOne;
 
     const setToken = (token, clickedCell) => {
         board.boardArray[clickedCell.dataset.row][clickedCell.dataset.col] = token;
-        console.log(board.boardArray);
     }
  
-    const toggleTurn = () => { };
+    const toggleTurn = () => {
+        if(currentPlayer == playerTwo){
+            currentPlayer = playerOne;
+        }else{
+            currentPlayer = playerTwo;
+        }
+     };
+
+     const checkForEndgame = () => {
+        console.log(board.boardArray);
+        //Check for 3 tokens on row
+
+        //Check for 3 tokens on col
+
+        //Check for diagonal
+
+        //If board is full
+     }
 
     const playRound = (clickedCell) => {
-        
         setToken(currentPlayer.token, clickedCell);
         board.renderBoard(board.boardArray);
-        //Update DOM board
+
         //Check for endgame
-        //toggleTurn
+        checkForEndgame();
+
+        toggleTurn();
      };
     ////EVENT LISTENER TAT GOES TO playRound/////
     document.querySelector('#game-board').addEventListener('click', (e) => {
-        console.log(e.target);
         if(e.target && e.target.classList.contains('game-board-cell')){
+            console.log(e.target.innerText);
+            if(e.target.innerText == 'X' || e.target.innerText == 'O'){
+                return;
+            }
             playRound(e.target);
         }
     });
