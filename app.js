@@ -28,10 +28,8 @@ const gameBoard = (() => {
             }
         }
     }
-    const cleanBoard = () => {
 
-    }
-    return{boardArray, renderBoard, cleanBoard}
+    return{boardArray, renderBoard}
 });
 
 /**
@@ -68,21 +66,43 @@ const gameController = (() => {
         }
      };
 
+     const setEndGame = (winner) => {
+        document.querySelector('#modal-container').classList.remove('d-none');
+        if(winner == 'Tie'){
+            document.querySelector('#winner').innerHTML = '<br>Its a tie';
+            return;
+        }
+        document.querySelector('#winner').innerHTML = `${winner.name}`;
+     }
+
      const checkForEndgame = () => {
-        console.log(board.boardArray);
         //Check for 3 tokens on  a row
             for(let row = 0; row < 3; row++){
                 //Check row
                 if(board.boardArray[row][0] != 0 && board.boardArray[row][1] != 0 && board.boardArray[row][2] != 0){
                     if(board.boardArray[row][0] == board.boardArray[row][1] && board.boardArray[row][0] == board.boardArray[row][2]){
-                        console.log('winner on row' + board.boardArray[row][0]);
+                        let winner;
+                        if (board.boardArray[row][0] == 'X'){
+                            winner = playerOne;
+                        }else{
+                            winner = playerTwo;
+                        }
+                        setEndGame(winner);
+                        return;
                     }   
                 }
                 //Check col
                 for(let col = 0; col < 3; col++){
                     if(board.boardArray[0][col] != 0 && board.boardArray[0][col] != 0 && board.boardArray[0][col] != 0){
                         if(board.boardArray[0][col] == board.boardArray[1][col] && board.boardArray[0][col] == board.boardArray[2][col]){
-                            console.log('winner on col' + board.boardArray[col][0]);
+                        let winner;
+                        if (board.boardArray[0][col] == 'X'){
+                            winner = playerOne;
+                        }else{
+                            winner = playerTwo;
+                        }
+                        setEndGame(winner);
+                        return;
                         }   
                     }
                 }
@@ -91,17 +111,42 @@ const gameController = (() => {
         //Check for diagonal
         if(board.boardArray[0][0] != 0 && board.boardArray[1][1] != 0 && board.boardArray[2][2] != 0){     
             if(board.boardArray[0][0] == board.boardArray[1][1]  && board.boardArray[0][0] == board.boardArray[2][2]){
-                console.log('winner on col' + board.boardArray[0][0]);
+                let winner;
+                if (board.boardArray[0][0] == 'X'){
+                    winner = playerOne;
+                }else{
+                    winner = playerTwo;
+                }
+                setEndGame(winner);
+                return;
             }   
         }
 
         if(board.boardArray[0][2] != 0 && board.boardArray[1][1] != 0 && board.boardArray[2][0] != 0){     
             if(board.boardArray[0][2] == board.boardArray[1][1]  && board.boardArray[0][2] == board.boardArray[2][0]){
-                console.log('winner on col' + board.boardArray[0][2]);
+                let winner;
+                if (board.boardArray[0][2] == 'X'){
+                    winner = playerOne;
+                }else{
+                    winner = playerTwo;
+                }
+                setEndGame(winner);
+                return;
             }   
         }
 
         //If board is full
+        let cellCounter = 0;
+        for(let row = 0; row < 3; row++){
+            for(let col = 0; col < 3; col++){
+                if(board.boardArray[row][col] != 0){
+                    cellCounter++;
+                }
+                if(cellCounter == 9){
+                    setEndGame('Tie');
+                }
+            }
+        }
      }
 
     const playRound = (clickedCell) => {
@@ -114,11 +159,19 @@ const gameController = (() => {
     //Click on empty cell
     document.querySelector('#game-board').addEventListener('click', (e) => {
         if(e.target && e.target.classList.contains('game-board-cell')){
-            console.log(e.target.innerText);
             if(e.target.innerText == 'X' || e.target.innerText == 'O'){
                 return;
             }
             playRound(e.target);
+        }
+    });
+
+    //Click on play again
+    document.querySelector('body').addEventListener('click', (e) => {
+        console.log('ds');
+        if(e.target && e.target.classList.contains('play-again')){
+            e.preventDefault();
+            window.location.reload();
         }
     });
      
