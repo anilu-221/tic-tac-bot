@@ -10,19 +10,25 @@ const gameBoard = (() => {
         }
     }
     const printCell = () => {
-        const boardDiv = document.querySelector('#game-board');
+        const boardButton = document.querySelector('#game-board');
 
     }
 
-    const renderBoard = () => {
-        const boardDiv = document.querySelector('#game-board');
-        boardDiv.innerHTML = '';
+    const renderBoard = (boardArray) => {
+        const boardButton = document.querySelector('#game-board');
+       // let cellValue = '0';
+        boardButton.innerHTML = '';
+
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++){
-                boardDiv.innerHTML += `
-                    <div class="game-board-cell" data-col="${col}" data-row="${row}">
-                        <p></p>
-                    </div>
+                let cellValue = boardArray[row][col];
+                if(boardArray[row][col] != 0){
+                    cellValue = boardArray[row][col];
+                }
+                boardButton.innerHTML += `
+                    <button class="game-board-cell" data-col="${col}" data-row="${row}">
+                        ${boardArray[row][col]}
+                    </button>
                 `;
             }
         }
@@ -61,23 +67,22 @@ const gameController = (() => {
     const toggleTurn = () => { };
 
     const playRound = (clickedCell) => {
-        //Get current player token
-        let currentToken = currentPlayer.token;
-
+        
         setToken(currentPlayer.token, clickedCell);
-        //Set token on board array
+        board.renderBoard(board.boardArray);
         //Update DOM board
         //Check for endgame
         //toggleTurn
      };
     ////EVENT LISTENER TAT GOES TO playRound/////
     document.querySelector('#game-board').addEventListener('click', (e) => {
+        console.log(e.target);
         if(e.target && e.target.classList.contains('game-board-cell')){
             playRound(e.target);
         }
     });
      
-    board.renderBoard();
+    board.renderBoard(board.boardArray);
 });
 
 gameController();
